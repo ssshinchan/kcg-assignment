@@ -36,8 +36,8 @@ public class GlobalExceptionHandler
     public AjaxResult handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',权限校验失败'{}'", requestURI, e.getMessage());
-        return AjaxResult.error(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
+        log.error("リクエストアドレス '{}'、権限検証に失敗しました '{}'", requestURI, e.getMessage());
+        return AjaxResult.error(HttpStatus.FORBIDDEN, "権限がありません。管理者にお問い合わせの上、権限を付与してください");
     }
 
     /**
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler
             HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
+        log.error("リクエストアドレス '{}' は '{}' リクエストに対応していません", requestURI, e.getMethod());
         return AjaxResult.error(e.getMessage());
     }
 
@@ -70,8 +70,8 @@ public class GlobalExceptionHandler
     public AjaxResult handleMissingPathVariableException(MissingPathVariableException e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
-        log.error("请求路径中缺少必需的路径变量'{}',发生系统异常.", requestURI, e);
-        return AjaxResult.error(String.format("请求路径中缺少必需的路径变量[%s]", e.getVariableName()));
+        log.error("リクエストパスに必要なパス変数 '{}' が不足しています。システム例外が発生しました。", requestURI, e);
+        return AjaxResult.error(String.format("リクエストパスに必要なパス変数 [%s] が不足しています", e.getVariableName()));
     }
 
     /**
@@ -86,8 +86,8 @@ public class GlobalExceptionHandler
         {
             value = EscapeUtil.clean(value);
         }
-        log.error("请求参数类型不匹配'{}',发生系统异常.", requestURI, e);
-        return AjaxResult.error(String.format("请求参数类型不匹配，参数[%s]要求类型为：'%s'，但输入值为：'%s'", e.getName(), e.getRequiredType().getName(), value));
+        log.error("リクエストパラメータの型が一致しません '{}'。システム例外が発生しました。", requestURI, e);
+        return AjaxResult.error(String.format("リクエストパラメータの型が一致しません。パラメータ [%s] の要求型は '%s' ですが、入力値は '%s' です", e.getName(), e.getRequiredType().getName(), value));
     }
 
     /**
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler
     public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',发生未知异常.", requestURI, e);
+        log.error("リクエストアドレス '{}'、未知の例外が発生しました。", requestURI, e);
         return AjaxResult.error(e.getMessage());
     }
 
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler
     public AjaxResult handleException(Exception e, HttpServletRequest request)
     {
         String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',发生系统异常.", requestURI, e);
+        log.error("リクエストアドレス '{}'、システム例外が発生しました。", requestURI, e);
         return AjaxResult.error(e.getMessage());
     }
 
@@ -140,6 +140,6 @@ public class GlobalExceptionHandler
     @ExceptionHandler(DemoModeException.class)
     public AjaxResult handleDemoModeException(DemoModeException e)
     {
-        return AjaxResult.error("演示模式，不允许操作");
+        return AjaxResult.error("デモモードのため、操作は許可されていません");
     }
 }

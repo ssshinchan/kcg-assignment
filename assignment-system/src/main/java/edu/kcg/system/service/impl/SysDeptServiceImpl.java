@@ -197,7 +197,7 @@ public class SysDeptServiceImpl implements ISysDeptService
             List<SysDept> depts = SpringUtils.getAopProxy(this).selectDeptList(dept);
             if (StringUtils.isEmpty(depts))
             {
-                throw new ServiceException("没有权限访问部门数据！");
+                throw new ServiceException("部門データへのアクセス権限がありません！");
             }
         }
     }
@@ -215,7 +215,7 @@ public class SysDeptServiceImpl implements ISysDeptService
         // 如果父节点不为正常状态,则不允许新增子节点
         if (!UserConstants.DEPT_NORMAL.equals(info.getStatus()))
         {
-            throw new ServiceException("部门停用，不允许新增");
+            throw new ServiceException("部門が無効化されているため、新規追加はできません");
         }
         dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
         return deptMapper.insertDept(dept);
@@ -303,7 +303,7 @@ public class SysDeptServiceImpl implements ISysDeptService
         }
         catch (Exception e)
         {
-            throw new ServiceException("保存排序异常，请联系管理员");
+            throw new ServiceException("表示順の保存中に例外が発生しました。管理者にお問い合わせください");
         }
     }
 

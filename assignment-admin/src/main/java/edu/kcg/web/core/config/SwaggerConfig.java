@@ -53,12 +53,12 @@ public class SwaggerConfig
     {
         return new Info()
             // 设置标题
-            .title("标题：管理システム_接口文档")
+            .title("タイトル：管理システム_APIドキュメント")
             // 描述
-            .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
+            .description("説明：グループ傘下企業の人員情報を管理するためのもので、具体的にはXXX、XXXモジュールなどが含まれます...")
             // 作者信息
             .contact(new Contact().name(assignmentConfig.getName()))
             // 版本
-            .version("版本号:" + assignmentConfig.getVersion());
+            .version("バージョン番号:" + assignmentConfig.getVersion());
     }
 }

@@ -242,7 +242,7 @@ public class IpUtils
         catch (UnknownHostException e)
         {
         }
-        return "未知";
+        return "不明";
     }
 
     /**

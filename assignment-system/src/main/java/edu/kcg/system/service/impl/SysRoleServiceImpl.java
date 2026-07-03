@@ -184,7 +184,7 @@ public class SysRoleServiceImpl implements ISysRoleService
     {
         if (StringUtils.isNotNull(role.getRoleId()) && role.isAdmin())
         {
-            throw new ServiceException("不允许操作超级管理员角色");
+            throw new ServiceException("スーパー管理者の役割は操作できません");
         }
     }
 
@@ -205,7 +205,7 @@ public class SysRoleServiceImpl implements ISysRoleService
                 List<SysRole> roles = SpringUtils.getAopProxy(this).selectRoleList(role);
                 if (StringUtils.isEmpty(roles))
                 {
-                    throw new ServiceException("没有权限访问角色数据！");
+                    throw new ServiceException("役割データへのアクセス権限がありません！");
                 }
             }
         }
@@ -367,7 +367,7 @@ public class SysRoleServiceImpl implements ISysRoleService
             SysRole role = selectRoleById(roleId);
             if (countUserRoleByRoleId(roleId) > 0)
             {
-                throw new ServiceException(String.format("%1$s已分配,不能删除", role.getRoleName()));
+                throw new ServiceException(String.format("%1$s は既に割り当てられているため、削除できません", role.getRoleName()));
             }
         }
         // 删除角色与菜单关联

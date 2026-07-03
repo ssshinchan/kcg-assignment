@@ -246,19 +246,19 @@ public class HttpUtils
         }
         catch (ConnectException e)
         {
-            log.error("调用HttpUtils.sendSSLPost ConnectException, url=" + url + ",param=" + param, e);
+            log.error("HttpUtils.sendSSLPostの呼び出し中にConnectExceptionが発生しました、url=" + url + ",param=" + param, e);
         }
         catch (SocketTimeoutException e)
         {
-            log.error("调用HttpUtils.sendSSLPost SocketTimeoutException, url=" + url + ",param=" + param, e);
+            log.error("HttpUtils.sendSSLPostの呼び出し中にSocketTimeoutExceptionが発生しました、url=" + url + ",param=" + param, e);
         }
         catch (IOException e)
         {
-            log.error("调用HttpUtils.sendSSLPost IOException, url=" + url + ",param=" + param, e);
+            log.error("HttpUtils.sendSSLPostの呼び出し中にIOExceptionが発生しました、url=" + url + ",param=" + param, e);
         }
         catch (Exception e)
         {
-            log.error("调用HttpsUtil.sendSSLPost Exception, url=" + url + ",param=" + param, e);
+            log.error("HttpsUtil.sendSSLPostの呼び出し中にExceptionが発生しました、url=" + url + ",param=" + param, e);
         }
         return result.toString();
     }

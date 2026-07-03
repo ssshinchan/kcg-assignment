@@ -336,7 +336,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导入Excel异常{}", e.getMessage());
+            log.error("Excelのインポート中に例外が発生しました {}", e.getMessage());
             throw new UtilException(e.getMessage());
         }
         finally
@@ -363,7 +363,7 @@ public class ExcelUtil<T>
         Sheet sheet = StringUtils.isNotEmpty(sheetName) ? wb.getSheet(sheetName) : wb.getSheetAt(0);
         if (sheet == null)
         {
-            throw new IOException("文件sheet不存在");
+            throw new IOException("ファイルのシートが存在しません");
         }
         boolean isXSSFWorkbook = !(wb instanceof HSSFWorkbook);
         Map<String, List<PictureData>> pictures = null;
@@ -385,7 +385,7 @@ public class ExcelUtil<T>
             Row heard = sheet.getRow(titleNum);
             if (heard == null)
             {
-                throw new UtilException("文件标题行为空，请检查Excel文件格式");
+                throw new UtilException("ファイルのタイトル行が空です。Excelファイルの形式を確認してください");
             }
             for (int i = 0; i < heard.getLastCellNum(); i++)
             {
@@ -649,7 +649,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导出Excel异常{}", e.getMessage());
+            log.error("Excelのエクスポート中に例外が発生しました {}", e.getMessage());
         }
         finally
         {
@@ -675,8 +675,8 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导出Excel异常{}", e.getMessage());
-            throw new UtilException("导出Excel失败，请联系网站管理员！");
+            log.error("Excelのエクスポート中に例外が発生しました {}", e.getMessage());
+            throw new UtilException("Excelのエクスポートに失敗しました。管理者にお問い合わせください！");
         }
         finally
         {
@@ -778,7 +778,7 @@ public class ExcelUtil<T>
                     }
                     catch (Exception e)
                     {
-                        log.error("填充集合数据失败", e);
+                        log.error("コレクションデータの書き込みに失敗しました", e);
                     }
                 }
                 else
@@ -817,7 +817,7 @@ public class ExcelUtil<T>
                 }
                 catch (Exception e)
                 {
-                    log.error("获取集合大小失败", e);
+                    log.error("コレクションサイズの取得に失敗しました", e);
                 }
             }
         }
@@ -1193,7 +1193,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导出Excel失败{}", e);
+            log.error("Excelのエクスポートに失敗しました {}", e);
         }
         return cell;
     }
@@ -1444,7 +1444,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("不能格式化数据 " + excel.handler(), e.getMessage());
+            log.error("データをフォーマットできません " + excel.handler(), e.getMessage());
         }
         return Convert.toStr(value);
     }
@@ -1483,7 +1483,7 @@ public class ExcelUtil<T>
             Set<Integer> keys = statistics.keySet();
             Cell cell = row.createCell(0);
             cell.setCellStyle(styles.get("total"));
-            cell.setCellValue("合计");
+            cell.setCellValue("合計");
 
             for (Integer key : keys)
             {
@@ -1949,7 +1949,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("获取对象异常{}", e.getMessage());
+            log.error("オブジェクトの取得中に例外が発生しました {}", e.getMessage());
         }
         return method;
     }

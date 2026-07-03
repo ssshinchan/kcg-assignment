@@ -34,7 +34,7 @@ public class HttpHelper
         }
         catch (IOException e)
         {
-            LOGGER.warn("getBodyString出现问题！");
+            LOGGER.warn("getBodyStringで問題が発生しました！");
         }
         finally
         {

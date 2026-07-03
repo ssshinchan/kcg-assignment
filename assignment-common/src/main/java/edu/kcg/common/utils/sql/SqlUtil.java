@@ -32,11 +32,11 @@ public class SqlUtil
     {
         if (StringUtils.isNotEmpty(value) && !isValidOrderBySql(value))
         {
-            throw new UtilException("参数不符合规范，不能进行查询");
+            throw new UtilException("パラメータが規約に適合していないため、クエリを実行できません");
         }
         if (StringUtils.length(value) > ORDER_BY_MAX_LENGTH)
         {
-            throw new UtilException("参数已超过最大限制，不能进行查询");
+            throw new UtilException("パラメータが最大制限を超えているため、クエリを実行できません");
         }
         return value;
     }
@@ -63,7 +63,7 @@ public class SqlUtil
         {
             if (StringUtils.indexOfIgnoreCase(value, sqlKeyword) > -1)
             {
-                throw new UtilException("参数存在SQL注入风险");
+                throw new UtilException("パラメータにSQLインジェクションのリスクがあります");
             }
         }
     }

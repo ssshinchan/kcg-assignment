@@ -227,7 +227,7 @@ public class SysUserServiceImpl implements ISysUserService
     {
         if (StringUtils.isNotNull(user.getUserId()) && user.isAdmin())
         {
-            throw new ServiceException("不允许操作超级管理员用户");
+            throw new ServiceException("スーパー管理者ユーザーは操作できません");
         }
     }
 
@@ -246,7 +246,7 @@ public class SysUserServiceImpl implements ISysUserService
             List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
             if (StringUtils.isEmpty(users))
             {
-                throw new ServiceException("没有权限访问用户数据！");
+                throw new ServiceException("ユーザーデータへのアクセス権限がありません！");
             }
         }
     }
@@ -501,7 +501,7 @@ public class SysUserServiceImpl implements ISysUserService
     {
         if (StringUtils.isNull(userList) || userList.size() == 0)
         {
-            throw new ServiceException("导入用户数据不能为空！");
+            throw new ServiceException("インポートするユーザーデータは空にできません！");
         }
         int successNum = 0;
         int failureNum = 0;
@@ -522,7 +522,7 @@ public class SysUserServiceImpl implements ISysUserService
                     user.setCreateBy(operName);
                     userMapper.insertUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 导入成功");
+                    successMsg.append("<br/>" + successNum + "、アカウント " + user.getUserName() + " インポート成功");
                 }
                 else if (isUpdateSupport)
                 {
@@ -535,30 +535,30 @@ public class SysUserServiceImpl implements ISysUserService
                     user.setUpdateBy(operName);
                     userMapper.updateUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 更新成功");
+                    successMsg.append("<br/>" + successNum + "、アカウント " + user.getUserName() + " 更新成功");
                 }
                 else
                 {
                     failureNum++;
-                    failureMsg.append("<br/>" + failureNum + "、账号 " + user.getUserName() + " 已存在");
+                    failureMsg.append("<br/>" + failureNum + "、アカウント " + user.getUserName() + " 既に存在します");
                 }
             }
             catch (Exception e)
             {
                 failureNum++;
-                String msg = "<br/>" + failureNum + "、账号 " + user.getUserName() + " 导入失败：";
+                String msg = "<br/>" + failureNum + "、アカウント " + user.getUserName() + " インポート失敗：";
                 failureMsg.append(msg + e.getMessage());
                 log.error(msg, e);
             }
         }
         if (failureNum > 0)
         {
-            failureMsg.insert(0, "很抱歉，导入失败！共 " + failureNum + " 条数据格式不正确，错误如下：");
+            failureMsg.insert(0, "申し訳ありません。インポートに失敗しました。計 " + failureNum + " 件のデータ形式が正しくありません。エラーは以下の通りです：");
             throw new ServiceException(failureMsg.toString());
         }
         else
         {
-            successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
+            successMsg.insert(0, "おめでとうございます。すべてのデータが正常にインポートされました。計 " + successNum + " 件、データは以下の通りです：");
         }
         return successMsg.toString();
     }

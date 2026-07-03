@@ -81,7 +81,7 @@ public class MyBatisConfig
             }
             else
             {
-                throw new RuntimeException("mybatis typeAliasesPackage 路径扫描错误,参数typeAliasesPackage:" + typeAliasesPackage + "未找到任何包");
+                throw new RuntimeException("mybatis typeAliasesPackage パススキャンエラー、パラメータ typeAliasesPackage:" + typeAliasesPackage + "パッケージが見つかりませんでした");
             }
         }
         catch (IOException e)

@@ -43,14 +43,14 @@ public class SysDictTypeController extends BaseController
         return getDataTable(list);
     }
 
-    @Log(title = "字典类型", businessType = BusinessType.EXPORT)
+    @Log(title = "辞書タイプ", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysDictType dictType)
     {
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
-        util.exportExcel(response, list, "字典类型");
+        util.exportExcel(response, list, "辞書タイプ");
     }
 
     /**
@@ -67,13 +67,13 @@ public class SysDictTypeController extends BaseController
      * 新增字典类型
      */
     @PreAuthorize("@ss.hasPermi('system:dict:add')")
-    @Log(title = "字典类型", businessType = BusinessType.INSERT)
+    @Log(title = "辞書タイプ", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictType dict)
     {
         if (!dictTypeService.checkDictTypeUnique(dict))
         {
-            return error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
+            return error("辞書の新規追加 '" + dict.getDictName() + "' に失敗しました。辞書タイプが既に存在します");
         }
         dict.setCreateBy(getUsername());
         return toAjax(dictTypeService.insertDictType(dict));
@@ -83,13 +83,13 @@ public class SysDictTypeController extends BaseController
      * 修改字典类型
      */
     @PreAuthorize("@ss.hasPermi('system:dict:edit')")
-    @Log(title = "字典类型", businessType = BusinessType.UPDATE)
+    @Log(title = "辞書タイプ", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictType dict)
     {
         if (!dictTypeService.checkDictTypeUnique(dict))
         {
-            return error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
+            return error("辞書の変更 '" + dict.getDictName() + "' に失敗しました。辞書タイプが既に存在します");
         }
         dict.setUpdateBy(getUsername());
         return toAjax(dictTypeService.updateDictType(dict));
@@ -99,7 +99,7 @@ public class SysDictTypeController extends BaseController
      * 删除字典类型
      */
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
-    @Log(title = "字典类型", businessType = BusinessType.DELETE)
+    @Log(title = "辞書タイプ", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictIds}")
     public AjaxResult remove(@PathVariable Long[] dictIds)
     {
@@ -111,7 +111,7 @@ public class SysDictTypeController extends BaseController
      * 刷新字典缓存
      */
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
-    @Log(title = "字典类型", businessType = BusinessType.CLEAN)
+    @Log(title = "辞書タイプ", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
     public AjaxResult refreshCache()
     {

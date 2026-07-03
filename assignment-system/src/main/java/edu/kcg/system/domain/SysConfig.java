@@ -18,23 +18,23 @@ public class SysConfig extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 参数主键 */
-    @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
+    @Excel(name = "パラメータ主キー", cellType = ColumnType.NUMERIC)
     private Long configId;
 
     /** 参数名称 */
-    @Excel(name = "参数名称")
+    @Excel(name = "パラメータ名")
     private String configName;
 
     /** 参数键名 */
-    @Excel(name = "参数键名")
+    @Excel(name = "パラメータキー名")
     private String configKey;
 
     /** 参数键值 */
-    @Excel(name = "参数键值")
+    @Excel(name = "パラメータ値")
     private String configValue;
 
     /** 系统内置（Y是 N否） */
-    @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
+    @Excel(name = "システム組み込み", readConverterExp = "Y=はい,N=いいえ")
     private String configType;
 
     public Long getConfigId()
@@ -47,8 +47,8 @@ public class SysConfig extends BaseEntity
         this.configId = configId;
     }
 
-    @NotBlank(message = "参数名称不能为空")
-    @Size(min = 0, max = 100, message = "参数名称不能超过100个字符")
+    @NotBlank(message = "パラメータ名は必須入力です")
+    @Size(min = 0, max = 100, message = "パラメータ名は100文字以内で入力してください")
     public String getConfigName()
     {
         return configName;
@@ -59,8 +59,8 @@ public class SysConfig extends BaseEntity
         this.configName = configName;
     }
 
-    @NotBlank(message = "参数键名长度不能为空")
-    @Size(min = 0, max = 100, message = "参数键名长度不能超过100个字符")
+    @NotBlank(message = "パラメータキー名は必須入力です")
+    @Size(min = 0, max = 100, message = "パラメータキー名は100文字以内で入力してください")
     public String getConfigKey()
     {
         return configKey;
@@ -71,8 +71,8 @@ public class SysConfig extends BaseEntity
         this.configKey = configKey;
     }
 
-    @NotBlank(message = "参数键值不能为空")
-    @Size(min = 0, max = 500, message = "参数键值长度不能超过500个字符")
+    @NotBlank(message = "パラメータ値は必須入力です")
+    @Size(min = 0, max = 500, message = "パラメータ値は500文字以内で入力してください")
     public String getConfigValue()
     {
         return configValue;

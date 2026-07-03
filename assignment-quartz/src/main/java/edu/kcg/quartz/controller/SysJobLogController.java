@@ -47,13 +47,13 @@ public class SysJobLogController extends BaseController
      * 导出定时任务调度日志列表
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:export')")
-    @Log(title = "任务调度日志", businessType = BusinessType.EXPORT)
+    @Log(title = "タスクスケジュールログ", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysJobLog sysJobLog)
     {
         List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
         ExcelUtil<SysJobLog> util = new ExcelUtil<SysJobLog>(SysJobLog.class);
-        util.exportExcel(response, list, "调度日志");
+        util.exportExcel(response, list, "スケジュールログ");
     }
     
     /**
@@ -71,7 +71,7 @@ public class SysJobLogController extends BaseController
      * 删除定时任务调度日志
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
-    @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
+    @Log(title = "スケジュールタスク実行ログ", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
     public AjaxResult remove(@PathVariable Long[] jobLogIds)
     {
@@ -82,7 +82,7 @@ public class SysJobLogController extends BaseController
      * 清空定时任务调度日志
      */
     @PreAuthorize("@ss.hasPermi('monitor:job:remove')")
-    @Log(title = "调度日志", businessType = BusinessType.CLEAN)
+    @Log(title = "スケジュールログ", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean()
     {

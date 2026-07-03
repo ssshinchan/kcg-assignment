@@ -85,8 +85,8 @@ public class SysDept extends BaseEntity
         this.ancestors = ancestors;
     }
 
-    @NotBlank(message = "部门名称不能为空")
-    @Size(min = 0, max = 30, message = "部门名称长度不能超过30个字符")
+    @NotBlank(message = "部門名は必須入力です")
+    @Size(min = 0, max = 30, message = "部門名は30文字以内で入力してください")
     public String getDeptName()
     {
         return deptName;
@@ -97,7 +97,7 @@ public class SysDept extends BaseEntity
         this.deptName = deptName;
     }
 
-    @NotNull(message = "显示顺序不能为空")
+    @NotNull(message = "表示順序は必須入力です")
     public Integer getOrderNum()
     {
         return orderNum;
@@ -118,7 +118,7 @@ public class SysDept extends BaseEntity
         this.leader = leader;
     }
 
-    @Size(min = 0, max = 11, message = "联系电话长度不能超过11个字符")
+    @Size(min = 0, max = 11, message = "電話番号は11文字以内で入力してください")
     public String getPhone()
     {
         return phone;
@@ -129,8 +129,8 @@ public class SysDept extends BaseEntity
         this.phone = phone;
     }
 
-    @Email(message = "邮箱格式不正确")
-    @Size(min = 0, max = 50, message = "邮箱长度不能超过50个字符")
+    @Email(message = "メールアドレスの形式が正しくありません")
+    @Size(min = 0, max = 50, message = "メールアドレスは50文字以内で入力してください")
     public String getEmail()
     {
         return email;

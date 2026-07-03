@@ -31,7 +31,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("图片加载异常 {}", e);
+            log.error("画像の読み込み中に例外が発生しました {}", e);
             return null;
         }
         finally
@@ -50,7 +50,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("获取图片异常 {}", e);
+            log.error("画像の取得中に例外が発生しました {}", e);
         }
         return null;
     }
@@ -87,7 +87,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("获取文件路径异常 {}", e);
+            log.error("ファイルパスの取得中に例外が発生しました {}", e);
             return null;
         }
         finally

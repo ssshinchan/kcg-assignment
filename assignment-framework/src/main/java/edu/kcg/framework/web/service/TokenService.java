@@ -76,7 +76,7 @@ public class TokenService
             }
             catch (Exception e)
             {
-                log.error("获取用户信息异常'{}'", e.getMessage());
+                log.error("ユーザー情報の取得中に例外が発生しました '{}'", e.getMessage());
             }
         }
         return null;

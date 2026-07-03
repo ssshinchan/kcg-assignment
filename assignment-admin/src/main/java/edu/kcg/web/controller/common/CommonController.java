@@ -49,7 +49,7 @@ public class CommonController
         {
             if (!FileUtils.checkAllowDownload(fileName))
             {
-                throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
+                throw new Exception(StringUtils.format("ファイル名 ({}) が不正なため、ダウンロードは許可されていません。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
             String filePath = AssignmentConfig.getDownloadPath() + fileName;
@@ -64,7 +64,7 @@ public class CommonController
         }
         catch (Exception e)
         {
-            log.error("下载文件失败", e);
+            log.error("ファイルのダウンロードに失敗しました", e);
         }
     }
 
@@ -142,7 +142,7 @@ public class CommonController
         {
             if (!FileUtils.checkAllowDownload(resource))
             {
-                throw new Exception(StringUtils.format("资源文件({})非法，不允许下载。 ", resource));
+                throw new Exception(StringUtils.format("リソースファイル ({}) が不正なため、ダウンロードは許可されていません。 ", resource));
             }
             // 本地资源路径
             String localPath = AssignmentConfig.getProfile();
@@ -156,7 +156,7 @@ public class CommonController
         }
         catch (Exception e)
         {
-            log.error("下载文件失败", e);
+            log.error("ファイルのダウンロードに失敗しました", e);
         }
     }
 }

@@ -569,12 +569,12 @@ public class Convert
             case "yes":
             case "ok":
             case "1":
-            case "是":
+            case "はい":
                 return true;
             case "false":
             case "no":
             case "0":
-            case "否":
+            case "いいえ":
                 return false;
             default:
                 return defaultValue;
@@ -981,10 +981,10 @@ public class Convert
     public static String digitUppercase(double n)
     {
         String[] fraction = { "角", "分" };
-        String[] digit = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
-        String[][] unit = { { "元", "万", "亿" }, { "", "拾", "佰", "仟" } };
+        String[] digit = { "零", "壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖" };
+        String[][] unit = { { "元", "万", "億" }, { "", "拾", "百", "千" } };
 
-        String head = n < 0 ? "负" : "";
+        String head = n < 0 ? "負" : "";
         n = Math.abs(n);
 
         String s = "";

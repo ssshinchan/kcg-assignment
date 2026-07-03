@@ -73,13 +73,13 @@ public class SysDeptController extends BaseController
      * 新增部门
      */
     @PreAuthorize("@ss.hasPermi('system:dept:add')")
-    @Log(title = "部门管理", businessType = BusinessType.INSERT)
+    @Log(title = "部門管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDept dept)
     {
         if (!deptService.checkDeptNameUnique(dept))
         {
-            return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+            return error("部門の新規追加 '" + dept.getDeptName() + "' に失敗しました。部門名が既に存在します");
         }
         dept.setCreateBy(getUsername());
         return toAjax(deptService.insertDept(dept));
@@ -89,7 +89,7 @@ public class SysDeptController extends BaseController
      * 修改部门
      */
     @PreAuthorize("@ss.hasPermi('system:dept:edit')")
-    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
+    @Log(title = "部門管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDept dept)
     {
@@ -97,15 +97,15 @@ public class SysDeptController extends BaseController
         deptService.checkDeptDataScope(deptId);
         if (!deptService.checkDeptNameUnique(dept))
         {
-            return error("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+            return error("部門の変更 '" + dept.getDeptName() + "' に失敗しました。部門名が既に存在します");
         }
         else if (dept.getParentId().equals(deptId))
         {
-            return error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
+            return error("部門の変更 '" + dept.getDeptName() + "' に失敗しました。上位の部門に自身を選択することはできません");
         }
         else if (StringUtils.equals(UserConstants.DEPT_DISABLE, dept.getStatus()) && deptService.selectNormalChildrenDeptById(deptId) > 0)
         {
-            return error("该部门包含未停用的子部门！");
+            return error("この部門には無効化されていない下位の部門が含まれています！");
         }
         dept.setUpdateBy(getUsername());
         return toAjax(deptService.updateDept(dept));
@@ -115,7 +115,7 @@ public class SysDeptController extends BaseController
      * 保存部门排序
      */
     @PreAuthorize("@ss.hasPermi('system:dept:edit')")
-    @Log(title = "保存部门排序", businessType = BusinessType.UPDATE)
+    @Log(title = "部門表示順の保存", businessType = BusinessType.UPDATE)
     @PutMapping("/updateSort")
     public AjaxResult updateSort(@RequestBody Map<String, String> params)
     {
@@ -129,17 +129,17 @@ public class SysDeptController extends BaseController
      * 删除部门
      */
     @PreAuthorize("@ss.hasPermi('system:dept:remove')")
-    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @Log(title = "部門管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{deptId}")
     public AjaxResult remove(@PathVariable Long deptId)
     {
         if (deptService.hasChildByDeptId(deptId))
         {
-            return warn("存在下级部门,不允许删除");
+            return warn("下位の部門が存在するため、削除できません");
         }
         if (deptService.checkDeptExistUser(deptId))
         {
-            return warn("部门存在用户,不允许删除");
+            return warn("部門にユーザーが存在するため、削除できません");
         }
         deptService.checkDeptDataScope(deptId);
         return toAjax(deptService.deleteDeptById(deptId));

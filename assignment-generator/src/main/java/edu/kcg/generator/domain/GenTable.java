@@ -21,11 +21,11 @@ public class GenTable extends BaseEntity
     private Long tableId;
 
     /** 表名称 */
-    @NotBlank(message = "表名称不能为空")
+    @NotBlank(message = "テーブル名は必須入力です")
     private String tableName;
 
     /** 表描述 */
-    @NotBlank(message = "表描述不能为空")
+    @NotBlank(message = "テーブル説明是必須入力です")
     private String tableComment;
 
     /** 关联父表的表名 */
@@ -35,7 +35,7 @@ public class GenTable extends BaseEntity
     private String subTableFkName;
 
     /** 实体类名称(首字母大写) */
-    @NotBlank(message = "实体类名称不能为空")
+    @NotBlank(message = "エンティティクラス名は必須入力です")
     private String className;
 
     /** 使用的模板（crud单表操作 tree树表操作 sub主子表操作） */
@@ -45,23 +45,23 @@ public class GenTable extends BaseEntity
     private String tplWebType;
 
     /** 生成包路径 */
-    @NotBlank(message = "生成包路径不能为空")
+    @NotBlank(message = "生成パッケージパスは必須入力です")
     private String packageName;
 
     /** 生成模块名 */
-    @NotBlank(message = "生成模块名不能为空")
+    @NotBlank(message = "生成モジュール名は必須入力です")
     private String moduleName;
 
     /** 生成业务名 */
-    @NotBlank(message = "生成业务名不能为空")
+    @NotBlank(message = "生成業務名は必須入力です")
     private String businessName;
 
     /** 生成功能名 */
-    @NotBlank(message = "生成功能名不能为空")
+    @NotBlank(message = "生成機能名は必須入力です")
     private String functionName;
 
     /** 生成作者 */
-    @NotBlank(message = "作者不能为空")
+    @NotBlank(message = "作成者は必須入力です")
     private String functionAuthor;
 
     /** 生成代码方式（0zip压缩包 1自定义路径） */

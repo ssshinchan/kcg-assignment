@@ -45,7 +45,7 @@ public abstract class AbstractQuartzJob implements Job
         }
         catch (Exception e)
         {
-            log.error("任务执行异常  - ：", e);
+            log.error("タスク実行例外 - ：", e);
             after(context, sysJob, e);
         }
     }
@@ -79,7 +79,7 @@ public abstract class AbstractQuartzJob implements Job
         sysJobLog.setStartTime(startTime);
         sysJobLog.setEndTime(new Date());
         long runMs = sysJobLog.getEndTime().getTime() - sysJobLog.getStartTime().getTime();
-        sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
+        sysJobLog.setJobMessage(sysJobLog.getJobName() + " 総処理時間：" + runMs + "ミリ秒");
         if (e != null)
         {
             sysJobLog.setStatus(Constants.FAIL);

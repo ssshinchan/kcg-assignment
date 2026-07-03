@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  *
  * @author assignment
  */
-@Tag(name = "用户信息管理")
+@Tag(name = "ユーザー情報管理")
 @RestController
 @RequestMapping("/test/user")
 public class TestController extends BaseController
@@ -35,7 +35,7 @@ public class TestController extends BaseController
         users.put(2, new UserEntity(2, "ry", "admin123", "15666666666"));
     }
     
-    @Operation(summary = "获取用户列表")
+    @Operation(summary = "ユーザー一覧の取得")
     @GetMapping("/list")
     public R<List<UserEntity>> userList()
     {
@@ -43,7 +43,7 @@ public class TestController extends BaseController
         return R.ok(userList);
     }
     
-    @Operation(summary = "获取用户详细")
+    @Operation(summary = "ユーザー詳細の取得")
     @GetMapping("/{userId}")
     public R<UserEntity> getUser(@PathVariable(name = "userId")
     Integer userId)
@@ -54,41 +54,41 @@ public class TestController extends BaseController
         }
         else
         {
-            return R.fail("用户不存在");
+            return R.fail("ユーザーが存在しません");
         }
     }
     
-    @Operation(summary = "新增用户")
+    @Operation(summary = "ユーザーの追加")
     @PostMapping("/save")
     public R<String> save(UserEntity user)
     {
         if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId()))
         {
-            return R.fail("用户ID不能为空");
+            return R.fail("ユーザーIDは必須入力です");
         }
         users.put(user.getUserId(), user);
         return R.ok();
     }
     
-    @Operation(summary = "更新用户")
+    @Operation(summary = "ユーザーの更新")
     @PutMapping("/update")
     public R<String> update(@RequestBody
     UserEntity user)
     {
         if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId()))
         {
-            return R.fail("用户ID不能为空");
+            return R.fail("ユーザーIDは必須入力です");
         }
         if (users.isEmpty() || !users.containsKey(user.getUserId()))
         {
-            return R.fail("用户不存在");
+            return R.fail("ユーザーが存在しません");
         }
         users.remove(user.getUserId());
         users.put(user.getUserId(), user);
         return R.ok();
     }
     
-    @Operation(summary = "删除用户信息")
+    @Operation(summary = "ユーザー情報の削除")
     @DeleteMapping("/{userId}")
     public R<String> delete(@PathVariable(name = "userId")
     Integer userId)
@@ -100,24 +100,24 @@ public class TestController extends BaseController
         }
         else
         {
-            return R.fail("用户不存在");
+            return R.fail("ユーザーが存在しません");
         }
     }
 }
 
-@Schema(description = "用户实体")
+@Schema(description = "ユーザーエンティティ")
 class UserEntity
 {
-    @Schema(title = "用户ID")
+    @Schema(title = "ユーザーID")
     private Integer userId;
     
-    @Schema(title = "用户名称")
+    @Schema(title = "ユーザー名")
     private String username;
     
-    @Schema(title = "用户密码")
+    @Schema(title = "ユーザーパスワード")
     private String password;
     
-    @Schema(title = "用户手机")
+    @Schema(title = "ユーザー携帯電話番号")
     private String mobile;
     
     public UserEntity()

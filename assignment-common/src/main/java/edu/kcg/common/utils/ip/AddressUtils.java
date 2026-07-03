@@ -29,7 +29,7 @@ public class AddressUtils
         // 内网不查询
         if (IpUtils.internalIp(ip))
         {
-            return "内网IP";
+            return "プライベートIP";
         }
         if (AssignmentConfig.isAddressEnabled())
         {
@@ -38,7 +38,7 @@ public class AddressUtils
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
                 if (StringUtils.isEmpty(rspStr))
                 {
-                    log.error("获取地理位置异常 {}", ip);
+                    log.error("位置情報の取得中に例外が発生しました {}", ip);
                     return UNKNOWN;
                 }
                 JSONObject obj = JSON.parseObject(rspStr);
@@ -48,7 +48,7 @@ public class AddressUtils
             }
             catch (Exception e)
             {
-                log.error("获取地理位置异常 {}", ip);
+                log.error("位置情報の取得中に例外が発生しました {}", ip);
             }
         }
         return UNKNOWN;

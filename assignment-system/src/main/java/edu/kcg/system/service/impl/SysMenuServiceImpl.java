@@ -346,7 +346,7 @@ public class SysMenuServiceImpl implements ISysMenuService
         }
         catch (Exception e)
         {
-            throw new ServiceException("保存排序异常，请联系管理员");
+            throw new ServiceException("表示順の保存中に例外が発生しました。管理者にお問い合わせください");
         }
     }
 
@@ -403,17 +403,17 @@ public class SysMenuServiceImpl implements ISysMenuService
                 String dbRouteName = StringUtils.isEmpty(sysMenu.getRouteName()) ? dbPath : sysMenu.getRouteName();
                 if (StringUtils.equalsAnyIgnoreCase(path, dbPath) && parentId.longValue() == dbParentId.longValue())
                 {
-                    log.warn("[同级路由冲突] 同级下已存在相同路由路径 '{}'，冲突菜单：{}", dbPath, sysMenu.getMenuName());
+                    log.warn("[同階層ルート競合] 同一階層に同じルートパス '{}' が既に存在します。競合メニュー：{}", dbPath, sysMenu.getMenuName());
                     return UserConstants.NOT_UNIQUE;
                 }
                 else if (StringUtils.equalsAnyIgnoreCase(path, dbPath) && parentId.longValue() == MENU_ROOT_ID)
                 {
-                    log.warn("[根目录路由冲突] 根目录下路由 '{}' 必须唯一，已被菜单 '{}' 占用", path, sysMenu.getMenuName());
+                    log.warn("[ルートディレクトリ競合] ルートディレクトリのルートパス '{}' は一意である必要があります。メニュー '{}' に占有されています", path, sysMenu.getMenuName());
                     return UserConstants.NOT_UNIQUE;
                 }
                 else if (StringUtils.equalsAnyIgnoreCase(routeName, dbRouteName))
                 {
-                    log.warn("[路由名称冲突] 路由名称 '{}' 需全局唯一，已被菜单 '{}' 使用", routeName, sysMenu.getMenuName());
+                    log.warn("[ルート名競合] ルート名 '{}' はグローバルで一意である必要があります。メニュー '{}' で使用されています", routeName, sysMenu.getMenuName());
                     return UserConstants.NOT_UNIQUE;
                 }
             }

@@ -46,14 +46,14 @@ public class SysPostController extends BaseController
         return getDataTable(list);
     }
     
-    @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
+    @Log(title = "役職管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysPost post)
     {
         List<SysPost> list = postService.selectPostList(post);
         ExcelUtil<SysPost> util = new ExcelUtil<SysPost>(SysPost.class);
-        util.exportExcel(response, list, "岗位数据");
+        util.exportExcel(response, list, "役職データ");
     }
 
     /**
@@ -70,17 +70,17 @@ public class SysPostController extends BaseController
      * 新增岗位
      */
     @PreAuthorize("@ss.hasPermi('system:post:add')")
-    @Log(title = "岗位管理", businessType = BusinessType.INSERT)
+    @Log(title = "役職管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysPost post)
     {
         if (!postService.checkPostNameUnique(post))
         {
-            return error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return error("役職の新規追加 '" + post.getPostName() + "' に失敗しました。役職名が既に存在します");
         }
         else if (!postService.checkPostCodeUnique(post))
         {
-            return error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return error("役職の新規追加 '" + post.getPostName() + "' に失敗しました。役職コードが既に存在します");
         }
         post.setCreateBy(getUsername());
         return toAjax(postService.insertPost(post));
@@ -90,17 +90,17 @@ public class SysPostController extends BaseController
      * 修改岗位
      */
     @PreAuthorize("@ss.hasPermi('system:post:edit')")
-    @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
+    @Log(title = "役職管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysPost post)
     {
         if (!postService.checkPostNameUnique(post))
         {
-            return error("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return error("役職の変更 '" + post.getPostName() + "' に失敗しました。役職名が既に存在します");
         }
         else if (!postService.checkPostCodeUnique(post))
         {
-            return error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return error("役職の変更 '" + post.getPostName() + "' に失敗しました。役職コードが既に存在します");
         }
         post.setUpdateBy(getUsername());
         return toAjax(postService.updatePost(post));
@@ -110,7 +110,7 @@ public class SysPostController extends BaseController
      * 删除岗位
      */
     @PreAuthorize("@ss.hasPermi('system:post:remove')")
-    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
+    @Log(title = "役職管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
     public AjaxResult remove(@PathVariable Long[] postIds)
     {
