@@ -1,0 +1,41 @@
+# Build artifacts and caches
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.tar.gz
+.mvn/
+.metadata/
+.classpath
+.project
+.settings/
+.factorypath
+
+# IDEs and editors
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.nb-confidence
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Frontend folder (skipped as per user request)
+frontend/
+
+# Local configuration & environments
+.env
+.env.local
+.env.*.local
+
+# Git
+.git/
+.github/
+.gitignore
+*.md
