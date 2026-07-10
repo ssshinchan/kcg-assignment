@@ -168,7 +168,7 @@
                               <template #content>
                                  <div>
                                     Bean呼び出しの例:ryTask.ryParams('ry')
-                                    <br />クラス クラス呼び出しの例:com.ruoyi.quartz.task.RyTask.ryParams('ry')
+                                    <br />クラス クラス呼び出しの例:edu.kcg.quartz.task.RyTask.ryParams('ry')
                                     <br />パラメータの説明: 文字列、ブール型、長整数型、浮動小数点型、整数型をサポート
                                  </div>
                               </template>

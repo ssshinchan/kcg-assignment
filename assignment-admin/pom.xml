@@ -54,6 +54,11 @@
             <artifactId>assignment-generator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>edu.kcg</groupId>
+            <artifactId>assignment-ai</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

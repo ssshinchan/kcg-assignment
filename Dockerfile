@@ -13,6 +13,7 @@ COPY assignment-framework/pom.xml assignment-framework/
 COPY assignment-generator/pom.xml assignment-generator/
 COPY assignment-quartz/pom.xml assignment-quartz/
 COPY assignment-system/pom.xml assignment-system/
+COPY assignment-ai/pom.xml assignment-ai/
 
 RUN mvn dependency:go-offline -B
 

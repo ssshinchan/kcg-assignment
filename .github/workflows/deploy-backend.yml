@@ -73,6 +73,7 @@ jobs:
               --name "$CONTAINER_NAME" \
               --restart unless-stopped \
               --env-file .env \
+              --add-host=host.docker.internal:host-gateway \
               -p 8080:8080 \
               "$IMAGE"
             echo "Backend container deployed successfully."

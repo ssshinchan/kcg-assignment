@@ -27,7 +27,7 @@
         <el-form-item prop="packageName">
           <template #label>
             パッケージパスを生成する
-            <el-tooltip content="たとえば、どの Java パッケージが生成されるか com.ruoyi.system" placement="top">
+            <el-tooltip content="たとえば、どの Java パッケージが生成されるか edu.kcg.system" placement="top">
               <el-icon><question-filled /></el-icon>
             </el-tooltip>
           </template>
