@@ -10,6 +10,9 @@ on:
 jobs:
   deploy-backend:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -22,15 +25,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 2. Login to Amazon ECR
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+      # 2. Login to Amazon ECR Public
+      - name: Login to Amazon ECR Public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
 
-      # 3. Set ECR registry and repository environment variables
+      # 3. Set public ECR registry and repository environment variables
       - name: Set ECR variables
         run: |
-          echo "ECR_REGISTRY=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com" >> $GITHUB_ENV
-          echo "ECR_REPOSITORY=assignment-backend" >> $GITHUB_ENV
+          echo "ECR_REGISTRY=public.ecr.aws/v2h0k5d2" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=kcg/assignment-backend" >> $GITHUB_ENV
 
       # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
@@ -46,14 +51,28 @@ jobs:
           tags: |
             ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest
             ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
 
-      # 6. Refresh Backend Docker Image
-      - name: Refresh Backend Docker Image
-        run: |
-          IMAGE="${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest"
-          echo "===== Refreshing Backend Docker image ====="
-          echo "Removing existing image: $IMAGE"
-          docker image rm -f "$IMAGE" || true
-          echo "Pulling latest image: $IMAGE"
-          docker pull "$IMAGE"
-          echo "Backend Docker image refreshed successfully."
+      # 6. Deploy latest backend container over SSH
+      - name: Deploy latest backend container over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ECR_REGISTRY="${{ env.ECR_REGISTRY }}"
+            ECR_REPOSITORY="${{ env.ECR_REPOSITORY }}"
+            IMAGE="$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+            CONTAINER_NAME="assignment-backend"
+            echo "===== Deploying backend container ====="
+            docker pull "$IMAGE"
+            docker rm -f "$CONTAINER_NAME" || true
+            docker run -d \
+              --name "$CONTAINER_NAME" \
+              --restart unless-stopped \
+              --env-file .env \
+              -p 8080:8080 \
+              "$IMAGE"
+            echo "Backend container deployed successfully."

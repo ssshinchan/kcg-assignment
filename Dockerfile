@@ -1,5 +1,8 @@
 # 阶段一：构建阶段 (使用 Maven 缓存依赖并打包)
-FROM maven:3.9.9-eclipse-temurin-21 AS builder
+FROM eclipse-temurin:25-jdk AS builder
+WORKDIR /tmp
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+WORKDIR /build
 WORKDIR /build
 
 # 复制 Maven 配置以缓存依赖项
@@ -18,7 +21,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # 阶段二：运行阶段
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:25-jre
 WORKDIR /app
 
 # 从构建阶段复制打包好的 jar 包
