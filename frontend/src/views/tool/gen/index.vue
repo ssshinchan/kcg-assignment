@@ -224,7 +224,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess("カスタム パスが正常に生成されました:" + row.genPath)
     })
   } else {
-    const zipName = Array.isArray(tbNames) ? "ruoyi.zip" : tbNames + ".zip"
+    const zipName = Array.isArray(tbNames) ? "kcg-assignment.zip" : tbNames + ".zip"
     proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, zipName)
   }
 }

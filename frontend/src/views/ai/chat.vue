@@ -526,7 +526,7 @@ function focusInput() {
 /* ===== 全体レイアウト ===== */
 .ai-chat-wrapper {
   display: flex;
-  /* RuoYi-Vue3 のレイアウトに対応：上部 navbar 50px + tabs-nav 34px + 余白 */
+  /* Vue3 のレイアウトに対応：上部 navbar 50px + tabs-nav 34px + 余白 */
   height: calc(100vh - 84px);
   background: #f5f7fa;
   overflow: hidden;

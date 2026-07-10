@@ -64,8 +64,11 @@ jobs:
           script: |
             ECR_REGISTRY="${{ env.ECR_REGISTRY }}"
             ECR_REPOSITORY="${{ env.ECR_REPOSITORY }}"
+            AWS_REGION="${{ secrets.AWS_REGION }}"
             IMAGE="$ECR_REGISTRY/$ECR_REPOSITORY:latest"
             CONTAINER_NAME="assignment-backend"
+            LOG_GROUP="/assignment/assignment-backend"
+            LOG_STREAM="backend-${{ github.sha }}"
             echo "===== Deploying backend container ====="
             docker pull "$IMAGE"
             docker rm -f "$CONTAINER_NAME" || true
@@ -74,6 +77,12 @@ jobs:
               --restart unless-stopped \
               --env-file .env \
               --add-host=host.docker.internal:host-gateway \
+              --log-driver=awslogs \
+              --log-opt awslogs-region="$AWS_REGION" \
+              --log-opt awslogs-group="$LOG_GROUP" \
+              --log-opt awslogs-stream="$LOG_STREAM" \
+              --log-opt mode=non-blocking \
+              --log-opt max-buffer-size=4m \
               -p 8080:8080 \
               "$IMAGE"
             echo "Backend container deployed successfully."
